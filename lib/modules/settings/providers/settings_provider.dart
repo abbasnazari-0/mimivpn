@@ -247,8 +247,8 @@ class SettingsNotifier extends StateNotifier<List<SettingsGroup>> {
     }
   }
 
-  Future<void> updateSettingsBasedOnFlowLine() async {
-    _updateSettingsBasedOnFlowLine();
+  Future<void> updateSettingsBasedOnFlowLine() {
+    return _updateSettingsBasedOnFlowLine();
   }
 }
 

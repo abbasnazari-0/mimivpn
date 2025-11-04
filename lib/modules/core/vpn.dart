@@ -217,7 +217,7 @@ class VPN {
       case "ios":
         return await _vpnBridge.connectVpn();
       default:
-        return false;
+        return await _vpnBridge.connectVpn() ?? true;
     }
   }
 
