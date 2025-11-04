@@ -54,10 +54,18 @@ class FlowlineService implements IFlowlineService {
           }
         }
 
-      await _secureStorage.write(flowLineKey, json.encode(decoded['flowLine']));
-      final ref = ProviderContainer();
-      final settings = ref.read(settingsProvider.notifier);
-      await settings.updateSettingsBasedOnFlowLine();
+        await _secureStorage.write(
+            flowLineKey, json.encode(decoded['flowLine']));
+        final ref = ProviderContainer();
+        try {
+          final settings = ref.read(settingsProvider.notifier);
+          await settings.updateSettingsBasedOnFlowLine();
+        } finally {
+          ref.dispose();
+        }
+      } else {
+        throw Exception('Invalid flowline format');
+      }
     } else {
       throw Exception('Flowline is empty, cannot save');
     }
