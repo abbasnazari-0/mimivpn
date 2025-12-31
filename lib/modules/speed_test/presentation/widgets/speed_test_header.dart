@@ -35,7 +35,7 @@ class SpeedTestHeader extends StatelessWidget {
         Row(
           children: [
             Text(
-              'D',
+              'M',
               style: TextStyle(
                 fontSize: 35.sp,
                 fontFamily: 'Lato',
@@ -44,7 +44,7 @@ class SpeedTestHeader extends StatelessWidget {
               ),
             ),
             Text(
-              'efyx ',
+              'IMI ',
               style: TextStyle(
                 fontSize: 32.sp,
                 fontFamily: 'Lato',

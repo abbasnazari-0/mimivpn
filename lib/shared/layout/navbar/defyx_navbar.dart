@@ -44,12 +44,12 @@ class DefyxNavBar extends ConsumerWidget {
                   current: currentScreen,
                   onTap: () => _navigateToHome(context),
                 ),
-                DefyxNavItem(
-                  screen: AppScreen.settings,
-                  icon: "settings",
-                  current: currentScreen,
-                  onTap: () => _navigateToSettings(context),
-                ),
+                // DefyxNavItem(
+                //   screen: AppScreen.settings,
+                //   icon: "settings",
+                //   current: currentScreen,
+                //   onTap: () => _navigateToSettings(context),
+                // ),
               ],
             ),
           ),

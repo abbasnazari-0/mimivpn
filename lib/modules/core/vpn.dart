@@ -9,7 +9,6 @@ import 'package:defyx_vpn/modules/core/vpn_bridge.dart';
 import 'package:defyx_vpn/modules/main/application/main_screen_provider.dart';
 import 'package:defyx_vpn/modules/settings/providers/settings_provider.dart';
 import 'package:defyx_vpn/shared/providers/connection_state_provider.dart';
-import 'package:defyx_vpn/shared/providers/flow_line_provider.dart';
 import 'package:defyx_vpn/shared/providers/group_provider.dart';
 import 'package:defyx_vpn/shared/providers/logs_provider.dart';
 import 'package:defyx_vpn/shared/services/vibration_service.dart';
@@ -17,7 +16,6 @@ import 'package:defyx_vpn/shared/services/firebase_analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:defyx_vpn/core/data/local/remote/api/flowline_service.dart';
 import 'package:defyx_vpn/core/data/local/vpn_data/vpn_data.dart';
 
 class VPN {
@@ -159,15 +157,13 @@ class VPN {
       return;
     }
 
-    final flowLineStorage =
-        await _container?.read(secureStorageProvider).read('flowLine') ?? "";
-
     final pattern = settings?.getPattern() ?? "";
 
     _connectionStartTime = DateTime.now();
     analyticsService.logVpnConnectAttempt(pattern.isEmpty ? 'auto' : pattern);
 
-    await _vpnBridge.startVPN(flowLineStorage, pattern);
+    // Note: VPN connection logic should be replaced with V2Ray implementation
+    // await _vpnBridge.startVPN(flowLineStorage, pattern);
   }
 
   Future<void> _onFailerConnect() async {
@@ -208,7 +204,7 @@ class VPN {
     analyticsService.logVpnConnected(
         pattern, groupState?.groupName, connectionDuration);
 
-    await _container?.read(flowlineServiceProvider).saveFlowline();
+    // Note: Flowline service removed - V2Ray handles configuration internally
   }
 
   Future<void> refreshPing() async {
@@ -282,13 +278,12 @@ class VPN {
     }
   }
 
-
   void _setConnectionStep(int step) {
-    _container?.read(flowLineStepProvider.notifier).setStep(step);
+    // Note: FlowLine step tracking removed - V2Ray uses its own connection tracking
   }
 
   void _setConnectionTotalSteps(int totalSteps) {
-    _container?.read(flowLineStepProvider.notifier).setTotalSteps(totalSteps);
+    // Note: FlowLine step tracking removed - V2Ray uses its own connection tracking
   }
 
   void _clearData(WidgetRef ref) {
@@ -331,7 +326,7 @@ class VPN {
 
   Future<void> initVPN() async {
     await _vpnBridge.setAsnName();
-    await _container?.read(flowlineServiceProvider).saveFlowline();
+    // Note: Flowline service removed - V2Ray handles configuration internally
   }
 
   Future<void> _updatePing() async {

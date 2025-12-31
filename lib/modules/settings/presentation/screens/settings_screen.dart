@@ -45,7 +45,7 @@ class SettingsScreen extends ConsumerWidget {
         Row(
           children: [
             Text(
-              'D',
+              'M',
               style: TextStyle(
                 fontSize: 35.sp,
                 fontFamily: 'Lato',
@@ -54,7 +54,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
             Text(
-              'efyx ',
+              'IMI ',
               style: TextStyle(
                 fontSize: 32.sp,
                 fontFamily: 'Lato',
@@ -102,7 +102,8 @@ class SettingsScreen extends ConsumerWidget {
                 },
                 onReorder: group.id == 'connection_method'
                     ? (oldIndex, newIndex) {
-                        settingsNotifier.reorderConnectionMethodItems(oldIndex, newIndex);
+                        settingsNotifier.reorderConnectionMethodItems(
+                            oldIndex, newIndex);
                       }
                     : null,
                 onReset: group.id == 'connection_method'

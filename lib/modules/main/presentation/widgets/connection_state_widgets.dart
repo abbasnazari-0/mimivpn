@@ -9,7 +9,7 @@ import 'package:defyx_vpn/core/theme/app_icons.dart';
 import 'package:defyx_vpn/modules/main/application/main_screen_provider.dart';
 import 'package:defyx_vpn/modules/main/presentation/widgets/shimmer.dart';
 import 'package:defyx_vpn/shared/providers/connection_state_provider.dart';
-import 'package:defyx_vpn/shared/providers/flow_line_provider.dart';
+import 'package:defyx_vpn/core/services/v2ray_service.dart';
 import 'package:defyx_vpn/shared/providers/logs_provider.dart';
 
 class NoInternetWidget extends StatelessWidget {
@@ -100,6 +100,25 @@ class FlagIndicator extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final animationService = AnimationService();
+    final v2rayState = ref.watch(v2rayServiceProvider);
+
+    // Use country from V2Ray service if connected, otherwise use old method
+    final isConnected = v2rayState.status == V2RayConnectionStatus.connected;
+    final countryFromV2Ray = v2rayState.serverCountry;
+
+    if (isConnected && countryFromV2Ray != null && countryFromV2Ray != 'xx') {
+      // Show flag from V2Ray detected country
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(6.r),
+        child: SvgPicture.asset(
+          'assets/flags/$countryFromV2Ray.svg',
+          height: 30.h,
+          fit: BoxFit.fitHeight,
+        ),
+      );
+    }
+
+    // Fallback to old flag provider
     final flagAsync = ref.watch(flagProvider);
     return flagAsync.when(
       data: (flag) => ClipRRect(
@@ -128,61 +147,70 @@ class PingIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final animationService = AnimationService();
+    final v2rayState = ref.watch(v2rayServiceProvider);
+    final ping = v2rayState.ping;
+
+    // Show loading state during ping refresh
+    final pingLoading = ref.watch(pingLoadingProvider);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         onTap: onRefresh,
-        child: Consumer(
-          builder: (context, ref, child) {
-            final ping = ref.watch(pingProvider);
-            final pingLoading = ref.watch(pingLoadingProvider);
-
-            if (pingLoading) {
-              return Shimmer.fromColors(
-                baseColor: const Color(0xFF307065),
-                highlightColor: const Color(0xFF1B483F),
-                enabled: animationService.shouldAnimate(),
-                child: PingPlaceholder(width: 52.w),
-              );
-            }
-            if (ping.isEmpty) {
-              return Text(
-                '0 ms',
+        child: Row(
+          children: [
+            SizedBox(width: 10.w),
+            if (pingLoading)
+              SizedBox(
+                width: 12.w,
+                height: 12.h,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            else if (ping != null && ping > 0)
+              Row(
+                children: [
+                  Text(
+                    '$ping',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    ' ms',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              )
+            else
+              Text(
+                '-- ms',
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.w400,
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.6),
                 ),
-              );
-            }
-            return Row(
-              children: [
-                SizedBox(width: 10.w),
-                Text(
-                  ping,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontFamily: 'Lato',
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  ' ms',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontFamily: 'Lato',
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            );
-          },
+              ),
+            SizedBox(width: 6.w),
+            Icon(
+              Icons.refresh,
+              size: 14.sp,
+              color: Colors.white.withOpacity(0.7),
+            ),
+          ],
         ),
       ),
     );
@@ -230,27 +258,12 @@ class AnalyzingContent extends ConsumerWidget {
     return Row(
       children: [
         Consumer(builder: (context, ref, child) {
-          final flowLineState = ref.watch(flowLineStepProvider);
-          final currentStep = flowLineState.step;
-          final totalSteps = flowLineState.totalSteps;
-
-          if (totalSteps == 0 || currentStep == 0) {
-            return Shimmer.fromColors(
-              baseColor: const Color(0xFF4161A6),
-              highlightColor: const Color(0xFF23499C),
-              enabled: animationService.shouldAnimate(),
-              child: StepsPlaceholder(width: 40.w),
-            );
-          }
-
-          return Text(
-            "$currentStep/$totalSteps",
-            style: TextStyle(
-              color: const Color(0xFFA7A7A7),
-              fontSize: 16.sp,
-              fontFamily: 'Lato',
-              fontWeight: FontWeight.w300,
-            ),
+          // FlowLine functionality removed - now shows simple connecting state
+          return Shimmer.fromColors(
+            baseColor: const Color(0xFF4161A6),
+            highlightColor: const Color(0xFF23499C),
+            enabled: animationService.shouldAnimate(),
+            child: StepsPlaceholder(width: 40.w),
           );
         }),
         SizedBox(width: 10.w),
@@ -274,12 +287,14 @@ class LoggerStatusWidget extends ConsumerWidget {
         _getLoggerStatusInfo(loggerState.status, groupState.groupName);
 
     return AnimatedSize(
-      duration: animationService.adjustDuration(const Duration(milliseconds: 300)),
+      duration:
+          animationService.adjustDuration(const Duration(milliseconds: 300)),
       curve: Curves.easeInOut,
       alignment: Alignment.centerLeft,
       child: TweenAnimationBuilder<double>(
         key: ValueKey<String>(statusInfo.text),
-        duration: animationService.adjustDuration(const Duration(milliseconds: 350)),
+        duration:
+            animationService.adjustDuration(const Duration(milliseconds: 350)),
         tween: Tween<double>(begin: 0.0, end: 1.0),
         curve: Curves.easeInOut,
         builder: (context, value, child) {

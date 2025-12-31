@@ -149,6 +149,9 @@ final shouldShowGoogleAdsProvider = StateProvider<bool?>((ref) => null);
 
 final customAdDataProvider = StateProvider<Map<String, String>?>((ref) => null);
 
+// Provider to trigger ad preloading
+final preloadAdsProvider = StateProvider<bool>((ref) => false);
+
 class GoogleAds extends ConsumerStatefulWidget {
   final Color backgroundColor;
   final double cornerRadius;
@@ -193,13 +196,27 @@ class _GoogleAdsState extends ConsumerState<GoogleAds> {
       if (!_isDisposed) {
         debugPrint('Resetting Google ads state...');
         ref.read(googleAdsProvider.notifier).resetState();
-        _initializeAds();
       }
     });
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Listen for preload trigger
+    final shouldPreload = ref.watch(preloadAdsProvider);
+    if (shouldPreload && !_hasInitialized && !_isLoading) {
+      debugPrint('📥 Preload trigger received, loading ads...');
+      _initializeAds();
+    }
+  }
+
   void _initializeAds() async {
     if (_isDisposed || _hasInitialized) return;
+
+    _hasInitialized = true;
+    debugPrint('🎯 Starting ads initialization with real IP...');
 
     try {
       final shouldShowGoogle = await _shouldShowGoogleAds(ref);
@@ -209,21 +226,29 @@ class _GoogleAdsState extends ConsumerState<GoogleAds> {
       ref.read(shouldShowGoogleAdsProvider.notifier).state = shouldShowGoogle;
 
       if (shouldShowGoogle) {
+        debugPrint('📱 Loading Google Ads...');
         _loadGoogleAd();
         return;
       }
 
+      debugPrint('🎨 Loading Custom Ads...');
       final customAdData = await AdvertiseDirector.getRandomCustomAd(ref);
       if (!_isDisposed) {
         ref.read(customAdDataProvider.notifier).state = customAdData;
         ref.read(googleAdsProvider.notifier).setAdLoaded(true);
       }
     } catch (e) {
-      debugPrint('Error initializing ads: $e');
+      debugPrint('❌ Error initializing ads: $e');
       if (!_isDisposed) {
         ref.read(googleAdsProvider.notifier).setAdLoadFailed();
       }
     }
+  }
+
+  // Public method to preload ads before VPN connection
+  void preloadAds() {
+    debugPrint('🎯 Preloading ads before VPN connection...');
+    _initializeAds();
   }
 
   void _loadGoogleAd() async {
@@ -238,6 +263,7 @@ class _GoogleAdsState extends ConsumerState<GoogleAds> {
     _nativeAd = null;
 
     try {
+      print('Loading NativeAd with unit ID: $_adUnitId');
       _nativeAd = NativeAd(
         adUnitId: _adUnitId,
         listener: NativeAdListener(

@@ -26,8 +26,6 @@ mixin _$AppApiResponse {
   Map<String, bool> get forceUpdate => throw _privateConstructorUsedError;
   @JsonKey(name: "changeLog")
   Map<String, List<String>> get changeLog => throw _privateConstructorUsedError;
-  @JsonKey(name: "flowLine")
-  AppApiResponseFlowLine get flowLine => throw _privateConstructorUsedError;
   @JsonKey(name: "testUrls")
   List<String> get testUrls => throw _privateConstructorUsedError;
 
@@ -51,11 +49,9 @@ abstract class $AppApiResponseCopyWith<$Res> {
       {@JsonKey(name: "version") Version version,
       @JsonKey(name: "forceUpdate") Map<String, bool> forceUpdate,
       @JsonKey(name: "changeLog") Map<String, List<String>> changeLog,
-      @JsonKey(name: "flowLine") AppApiResponseFlowLine flowLine,
       @JsonKey(name: "testUrls") List<String> testUrls});
 
   $VersionCopyWith<$Res> get version;
-  $AppApiResponseFlowLineCopyWith<$Res> get flowLine;
 }
 
 /// @nodoc
@@ -76,7 +72,6 @@ class _$AppApiResponseCopyWithImpl<$Res, $Val extends AppApiResponse>
     Object? version = null,
     Object? forceUpdate = null,
     Object? changeLog = null,
-    Object? flowLine = null,
     Object? testUrls = null,
   }) {
     return _then(_value.copyWith(
@@ -92,10 +87,6 @@ class _$AppApiResponseCopyWithImpl<$Res, $Val extends AppApiResponse>
           ? _value.changeLog
           : changeLog // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
-      flowLine: null == flowLine
-          ? _value.flowLine
-          : flowLine // ignore: cast_nullable_to_non_nullable
-              as AppApiResponseFlowLine,
       testUrls: null == testUrls
           ? _value.testUrls
           : testUrls // ignore: cast_nullable_to_non_nullable
@@ -112,16 +103,6 @@ class _$AppApiResponseCopyWithImpl<$Res, $Val extends AppApiResponse>
       return _then(_value.copyWith(version: value) as $Val);
     });
   }
-
-  /// Create a copy of AppApiResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AppApiResponseFlowLineCopyWith<$Res> get flowLine {
-    return $AppApiResponseFlowLineCopyWith<$Res>(_value.flowLine, (value) {
-      return _then(_value.copyWith(flowLine: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -136,13 +117,10 @@ abstract class _$$AppApiResponseImplCopyWith<$Res>
       {@JsonKey(name: "version") Version version,
       @JsonKey(name: "forceUpdate") Map<String, bool> forceUpdate,
       @JsonKey(name: "changeLog") Map<String, List<String>> changeLog,
-      @JsonKey(name: "flowLine") AppApiResponseFlowLine flowLine,
       @JsonKey(name: "testUrls") List<String> testUrls});
 
   @override
   $VersionCopyWith<$Res> get version;
-  @override
-  $AppApiResponseFlowLineCopyWith<$Res> get flowLine;
 }
 
 /// @nodoc
@@ -161,7 +139,6 @@ class __$$AppApiResponseImplCopyWithImpl<$Res>
     Object? version = null,
     Object? forceUpdate = null,
     Object? changeLog = null,
-    Object? flowLine = null,
     Object? testUrls = null,
   }) {
     return _then(_$AppApiResponseImpl(
@@ -177,10 +154,6 @@ class __$$AppApiResponseImplCopyWithImpl<$Res>
           ? _value._changeLog
           : changeLog // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
-      flowLine: null == flowLine
-          ? _value.flowLine
-          : flowLine // ignore: cast_nullable_to_non_nullable
-              as AppApiResponseFlowLine,
       testUrls: null == testUrls
           ? _value._testUrls
           : testUrls // ignore: cast_nullable_to_non_nullable
@@ -198,7 +171,6 @@ class _$AppApiResponseImpl implements _AppApiResponse {
       required final Map<String, bool> forceUpdate,
       @JsonKey(name: "changeLog")
       required final Map<String, List<String>> changeLog,
-      @JsonKey(name: "flowLine") required this.flowLine,
       @JsonKey(name: "testUrls") required final List<String> testUrls})
       : _forceUpdate = forceUpdate,
         _changeLog = changeLog,
@@ -228,9 +200,6 @@ class _$AppApiResponseImpl implements _AppApiResponse {
     return EqualUnmodifiableMapView(_changeLog);
   }
 
-  @override
-  @JsonKey(name: "flowLine")
-  final AppApiResponseFlowLine flowLine;
   final List<String> _testUrls;
   @override
   @JsonKey(name: "testUrls")
@@ -242,7 +211,7 @@ class _$AppApiResponseImpl implements _AppApiResponse {
 
   @override
   String toString() {
-    return 'AppApiResponse(version: $version, forceUpdate: $forceUpdate, changeLog: $changeLog, flowLine: $flowLine, testUrls: $testUrls)';
+    return 'AppApiResponse(version: $version, forceUpdate: $forceUpdate, changeLog: $changeLog, testUrls: $testUrls)';
   }
 
   @override
@@ -255,8 +224,6 @@ class _$AppApiResponseImpl implements _AppApiResponse {
                 .equals(other._forceUpdate, _forceUpdate) &&
             const DeepCollectionEquality()
                 .equals(other._changeLog, _changeLog) &&
-            (identical(other.flowLine, flowLine) ||
-                other.flowLine == flowLine) &&
             const DeepCollectionEquality().equals(other._testUrls, _testUrls));
   }
 
@@ -267,7 +234,6 @@ class _$AppApiResponseImpl implements _AppApiResponse {
       version,
       const DeepCollectionEquality().hash(_forceUpdate),
       const DeepCollectionEquality().hash(_changeLog),
-      flowLine,
       const DeepCollectionEquality().hash(_testUrls));
 
   /// Create a copy of AppApiResponse
@@ -289,14 +255,13 @@ class _$AppApiResponseImpl implements _AppApiResponse {
 
 abstract class _AppApiResponse implements AppApiResponse {
   const factory _AppApiResponse(
-      {@JsonKey(name: "version") required final Version version,
-      @JsonKey(name: "forceUpdate")
-      required final Map<String, bool> forceUpdate,
-      @JsonKey(name: "changeLog")
-      required final Map<String, List<String>> changeLog,
-      @JsonKey(name: "flowLine") required final AppApiResponseFlowLine flowLine,
-      @JsonKey(name: "testUrls")
-      required final List<String> testUrls}) = _$AppApiResponseImpl;
+          {@JsonKey(name: "version") required final Version version,
+          @JsonKey(name: "forceUpdate")
+          required final Map<String, bool> forceUpdate,
+          @JsonKey(name: "changeLog")
+          required final Map<String, List<String>> changeLog,
+          @JsonKey(name: "testUrls") required final List<String> testUrls}) =
+      _$AppApiResponseImpl;
 
   factory _AppApiResponse.fromJson(Map<String, dynamic> json) =
       _$AppApiResponseImpl.fromJson;
@@ -311,9 +276,6 @@ abstract class _AppApiResponse implements AppApiResponse {
   @JsonKey(name: "changeLog")
   Map<String, List<String>> get changeLog;
   @override
-  @JsonKey(name: "flowLine")
-  AppApiResponseFlowLine get flowLine;
-  @override
   @JsonKey(name: "testUrls")
   List<String> get testUrls;
 
@@ -322,629 +284,6 @@ abstract class _AppApiResponse implements AppApiResponse {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AppApiResponseImplCopyWith<_$AppApiResponseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-AppApiResponseFlowLine _$AppApiResponseFlowLineFromJson(
-    Map<String, dynamic> json) {
-  return _AppApiResponseFlowLine.fromJson(json);
-}
-
-/// @nodoc
-mixin _$AppApiResponseFlowLine {
-  @JsonKey(name: "startLine")
-  int get startLine => throw _privateConstructorUsedError;
-  @JsonKey(name: "flowLine")
-  List<FlowLineElement> get flowLine => throw _privateConstructorUsedError;
-
-  /// Serializes this AppApiResponseFlowLine to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of AppApiResponseFlowLine
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AppApiResponseFlowLineCopyWith<AppApiResponseFlowLine> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AppApiResponseFlowLineCopyWith<$Res> {
-  factory $AppApiResponseFlowLineCopyWith(AppApiResponseFlowLine value,
-          $Res Function(AppApiResponseFlowLine) then) =
-      _$AppApiResponseFlowLineCopyWithImpl<$Res, AppApiResponseFlowLine>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: "startLine") int startLine,
-      @JsonKey(name: "flowLine") List<FlowLineElement> flowLine});
-}
-
-/// @nodoc
-class _$AppApiResponseFlowLineCopyWithImpl<$Res,
-        $Val extends AppApiResponseFlowLine>
-    implements $AppApiResponseFlowLineCopyWith<$Res> {
-  _$AppApiResponseFlowLineCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AppApiResponseFlowLine
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? startLine = null,
-    Object? flowLine = null,
-  }) {
-    return _then(_value.copyWith(
-      startLine: null == startLine
-          ? _value.startLine
-          : startLine // ignore: cast_nullable_to_non_nullable
-              as int,
-      flowLine: null == flowLine
-          ? _value.flowLine
-          : flowLine // ignore: cast_nullable_to_non_nullable
-              as List<FlowLineElement>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$AppApiResponseFlowLineImplCopyWith<$Res>
-    implements $AppApiResponseFlowLineCopyWith<$Res> {
-  factory _$$AppApiResponseFlowLineImplCopyWith(
-          _$AppApiResponseFlowLineImpl value,
-          $Res Function(_$AppApiResponseFlowLineImpl) then) =
-      __$$AppApiResponseFlowLineImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: "startLine") int startLine,
-      @JsonKey(name: "flowLine") List<FlowLineElement> flowLine});
-}
-
-/// @nodoc
-class __$$AppApiResponseFlowLineImplCopyWithImpl<$Res>
-    extends _$AppApiResponseFlowLineCopyWithImpl<$Res,
-        _$AppApiResponseFlowLineImpl>
-    implements _$$AppApiResponseFlowLineImplCopyWith<$Res> {
-  __$$AppApiResponseFlowLineImplCopyWithImpl(
-      _$AppApiResponseFlowLineImpl _value,
-      $Res Function(_$AppApiResponseFlowLineImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AppApiResponseFlowLine
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? startLine = null,
-    Object? flowLine = null,
-  }) {
-    return _then(_$AppApiResponseFlowLineImpl(
-      startLine: null == startLine
-          ? _value.startLine
-          : startLine // ignore: cast_nullable_to_non_nullable
-              as int,
-      flowLine: null == flowLine
-          ? _value._flowLine
-          : flowLine // ignore: cast_nullable_to_non_nullable
-              as List<FlowLineElement>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$AppApiResponseFlowLineImpl implements _AppApiResponseFlowLine {
-  const _$AppApiResponseFlowLineImpl(
-      {@JsonKey(name: "startLine") required this.startLine,
-      @JsonKey(name: "flowLine") required final List<FlowLineElement> flowLine})
-      : _flowLine = flowLine;
-
-  factory _$AppApiResponseFlowLineImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AppApiResponseFlowLineImplFromJson(json);
-
-  @override
-  @JsonKey(name: "startLine")
-  final int startLine;
-  final List<FlowLineElement> _flowLine;
-  @override
-  @JsonKey(name: "flowLine")
-  List<FlowLineElement> get flowLine {
-    if (_flowLine is EqualUnmodifiableListView) return _flowLine;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_flowLine);
-  }
-
-  @override
-  String toString() {
-    return 'AppApiResponseFlowLine(startLine: $startLine, flowLine: $flowLine)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AppApiResponseFlowLineImpl &&
-            (identical(other.startLine, startLine) ||
-                other.startLine == startLine) &&
-            const DeepCollectionEquality().equals(other._flowLine, _flowLine));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, startLine, const DeepCollectionEquality().hash(_flowLine));
-
-  /// Create a copy of AppApiResponseFlowLine
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AppApiResponseFlowLineImplCopyWith<_$AppApiResponseFlowLineImpl>
-      get copyWith => __$$AppApiResponseFlowLineImplCopyWithImpl<
-          _$AppApiResponseFlowLineImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AppApiResponseFlowLineImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _AppApiResponseFlowLine implements AppApiResponseFlowLine {
-  const factory _AppApiResponseFlowLine(
-          {@JsonKey(name: "startLine") required final int startLine,
-          @JsonKey(name: "flowLine")
-          required final List<FlowLineElement> flowLine}) =
-      _$AppApiResponseFlowLineImpl;
-
-  factory _AppApiResponseFlowLine.fromJson(Map<String, dynamic> json) =
-      _$AppApiResponseFlowLineImpl.fromJson;
-
-  @override
-  @JsonKey(name: "startLine")
-  int get startLine;
-  @override
-  @JsonKey(name: "flowLine")
-  List<FlowLineElement> get flowLine;
-
-  /// Create a copy of AppApiResponseFlowLine
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AppApiResponseFlowLineImplCopyWith<_$AppApiResponseFlowLineImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-FlowLineElement _$FlowLineElementFromJson(Map<String, dynamic> json) {
-  return _FlowLineElement.fromJson(json);
-}
-
-/// @nodoc
-mixin _$FlowLineElement {
-  @JsonKey(name: "enabled")
-  bool get enabled => throw _privateConstructorUsedError;
-  @JsonKey(name: "type")
-  String get type => throw _privateConstructorUsedError;
-  @JsonKey(name: "provider")
-  String get provider => throw _privateConstructorUsedError;
-  @JsonKey(name: "endpoint")
-  String? get endpoint => throw _privateConstructorUsedError;
-  @JsonKey(name: "dns")
-  String? get dns => throw _privateConstructorUsedError;
-  @JsonKey(name: "scanner")
-  bool? get scanner => throw _privateConstructorUsedError;
-  @JsonKey(name: "scanner_type")
-  String? get scannerType => throw _privateConstructorUsedError;
-  @JsonKey(name: "scanner_timeout")
-  int? get scannerTimeout => throw _privateConstructorUsedError;
-  @JsonKey(name: "psiphon")
-  bool? get psiphon => throw _privateConstructorUsedError;
-  @JsonKey(name: "psiphon_country")
-  String? get psiphonCountry => throw _privateConstructorUsedError;
-  @JsonKey(name: "gool")
-  bool? get gool => throw _privateConstructorUsedError;
-  @JsonKey(name: "url")
-  String? get url => throw _privateConstructorUsedError;
-
-  /// Serializes this FlowLineElement to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of FlowLineElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $FlowLineElementCopyWith<FlowLineElement> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FlowLineElementCopyWith<$Res> {
-  factory $FlowLineElementCopyWith(
-          FlowLineElement value, $Res Function(FlowLineElement) then) =
-      _$FlowLineElementCopyWithImpl<$Res, FlowLineElement>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: "enabled") bool enabled,
-      @JsonKey(name: "type") String type,
-      @JsonKey(name: "provider") String provider,
-      @JsonKey(name: "endpoint") String? endpoint,
-      @JsonKey(name: "dns") String? dns,
-      @JsonKey(name: "scanner") bool? scanner,
-      @JsonKey(name: "scanner_type") String? scannerType,
-      @JsonKey(name: "scanner_timeout") int? scannerTimeout,
-      @JsonKey(name: "psiphon") bool? psiphon,
-      @JsonKey(name: "psiphon_country") String? psiphonCountry,
-      @JsonKey(name: "gool") bool? gool,
-      @JsonKey(name: "url") String? url});
-}
-
-/// @nodoc
-class _$FlowLineElementCopyWithImpl<$Res, $Val extends FlowLineElement>
-    implements $FlowLineElementCopyWith<$Res> {
-  _$FlowLineElementCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of FlowLineElement
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? enabled = null,
-    Object? type = null,
-    Object? provider = null,
-    Object? endpoint = freezed,
-    Object? dns = freezed,
-    Object? scanner = freezed,
-    Object? scannerType = freezed,
-    Object? scannerTimeout = freezed,
-    Object? psiphon = freezed,
-    Object? psiphonCountry = freezed,
-    Object? gool = freezed,
-    Object? url = freezed,
-  }) {
-    return _then(_value.copyWith(
-      enabled: null == enabled
-          ? _value.enabled
-          : enabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      provider: null == provider
-          ? _value.provider
-          : provider // ignore: cast_nullable_to_non_nullable
-              as String,
-      endpoint: freezed == endpoint
-          ? _value.endpoint
-          : endpoint // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dns: freezed == dns
-          ? _value.dns
-          : dns // ignore: cast_nullable_to_non_nullable
-              as String?,
-      scanner: freezed == scanner
-          ? _value.scanner
-          : scanner // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      scannerType: freezed == scannerType
-          ? _value.scannerType
-          : scannerType // ignore: cast_nullable_to_non_nullable
-              as String?,
-      scannerTimeout: freezed == scannerTimeout
-          ? _value.scannerTimeout
-          : scannerTimeout // ignore: cast_nullable_to_non_nullable
-              as int?,
-      psiphon: freezed == psiphon
-          ? _value.psiphon
-          : psiphon // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      psiphonCountry: freezed == psiphonCountry
-          ? _value.psiphonCountry
-          : psiphonCountry // ignore: cast_nullable_to_non_nullable
-              as String?,
-      gool: freezed == gool
-          ? _value.gool
-          : gool // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$FlowLineElementImplCopyWith<$Res>
-    implements $FlowLineElementCopyWith<$Res> {
-  factory _$$FlowLineElementImplCopyWith(_$FlowLineElementImpl value,
-          $Res Function(_$FlowLineElementImpl) then) =
-      __$$FlowLineElementImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: "enabled") bool enabled,
-      @JsonKey(name: "type") String type,
-      @JsonKey(name: "provider") String provider,
-      @JsonKey(name: "endpoint") String? endpoint,
-      @JsonKey(name: "dns") String? dns,
-      @JsonKey(name: "scanner") bool? scanner,
-      @JsonKey(name: "scanner_type") String? scannerType,
-      @JsonKey(name: "scanner_timeout") int? scannerTimeout,
-      @JsonKey(name: "psiphon") bool? psiphon,
-      @JsonKey(name: "psiphon_country") String? psiphonCountry,
-      @JsonKey(name: "gool") bool? gool,
-      @JsonKey(name: "url") String? url});
-}
-
-/// @nodoc
-class __$$FlowLineElementImplCopyWithImpl<$Res>
-    extends _$FlowLineElementCopyWithImpl<$Res, _$FlowLineElementImpl>
-    implements _$$FlowLineElementImplCopyWith<$Res> {
-  __$$FlowLineElementImplCopyWithImpl(
-      _$FlowLineElementImpl _value, $Res Function(_$FlowLineElementImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of FlowLineElement
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? enabled = null,
-    Object? type = null,
-    Object? provider = null,
-    Object? endpoint = freezed,
-    Object? dns = freezed,
-    Object? scanner = freezed,
-    Object? scannerType = freezed,
-    Object? scannerTimeout = freezed,
-    Object? psiphon = freezed,
-    Object? psiphonCountry = freezed,
-    Object? gool = freezed,
-    Object? url = freezed,
-  }) {
-    return _then(_$FlowLineElementImpl(
-      enabled: null == enabled
-          ? _value.enabled
-          : enabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      provider: null == provider
-          ? _value.provider
-          : provider // ignore: cast_nullable_to_non_nullable
-              as String,
-      endpoint: freezed == endpoint
-          ? _value.endpoint
-          : endpoint // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dns: freezed == dns
-          ? _value.dns
-          : dns // ignore: cast_nullable_to_non_nullable
-              as String?,
-      scanner: freezed == scanner
-          ? _value.scanner
-          : scanner // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      scannerType: freezed == scannerType
-          ? _value.scannerType
-          : scannerType // ignore: cast_nullable_to_non_nullable
-              as String?,
-      scannerTimeout: freezed == scannerTimeout
-          ? _value.scannerTimeout
-          : scannerTimeout // ignore: cast_nullable_to_non_nullable
-              as int?,
-      psiphon: freezed == psiphon
-          ? _value.psiphon
-          : psiphon // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      psiphonCountry: freezed == psiphonCountry
-          ? _value.psiphonCountry
-          : psiphonCountry // ignore: cast_nullable_to_non_nullable
-              as String?,
-      gool: freezed == gool
-          ? _value.gool
-          : gool // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$FlowLineElementImpl implements _FlowLineElement {
-  const _$FlowLineElementImpl(
-      {@JsonKey(name: "enabled") required this.enabled,
-      @JsonKey(name: "type") required this.type,
-      @JsonKey(name: "provider") required this.provider,
-      @JsonKey(name: "endpoint") this.endpoint,
-      @JsonKey(name: "dns") this.dns,
-      @JsonKey(name: "scanner") this.scanner,
-      @JsonKey(name: "scanner_type") this.scannerType,
-      @JsonKey(name: "scanner_timeout") this.scannerTimeout,
-      @JsonKey(name: "psiphon") this.psiphon,
-      @JsonKey(name: "psiphon_country") this.psiphonCountry,
-      @JsonKey(name: "gool") this.gool,
-      @JsonKey(name: "url") this.url});
-
-  factory _$FlowLineElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FlowLineElementImplFromJson(json);
-
-  @override
-  @JsonKey(name: "enabled")
-  final bool enabled;
-  @override
-  @JsonKey(name: "type")
-  final String type;
-  @override
-  @JsonKey(name: "provider")
-  final String provider;
-  @override
-  @JsonKey(name: "endpoint")
-  final String? endpoint;
-  @override
-  @JsonKey(name: "dns")
-  final String? dns;
-  @override
-  @JsonKey(name: "scanner")
-  final bool? scanner;
-  @override
-  @JsonKey(name: "scanner_type")
-  final String? scannerType;
-  @override
-  @JsonKey(name: "scanner_timeout")
-  final int? scannerTimeout;
-  @override
-  @JsonKey(name: "psiphon")
-  final bool? psiphon;
-  @override
-  @JsonKey(name: "psiphon_country")
-  final String? psiphonCountry;
-  @override
-  @JsonKey(name: "gool")
-  final bool? gool;
-  @override
-  @JsonKey(name: "url")
-  final String? url;
-
-  @override
-  String toString() {
-    return 'FlowLineElement(enabled: $enabled, type: $type, provider: $provider, endpoint: $endpoint, dns: $dns, scanner: $scanner, scannerType: $scannerType, scannerTimeout: $scannerTimeout, psiphon: $psiphon, psiphonCountry: $psiphonCountry, gool: $gool, url: $url)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$FlowLineElementImpl &&
-            (identical(other.enabled, enabled) || other.enabled == enabled) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.provider, provider) ||
-                other.provider == provider) &&
-            (identical(other.endpoint, endpoint) ||
-                other.endpoint == endpoint) &&
-            (identical(other.dns, dns) || other.dns == dns) &&
-            (identical(other.scanner, scanner) || other.scanner == scanner) &&
-            (identical(other.scannerType, scannerType) ||
-                other.scannerType == scannerType) &&
-            (identical(other.scannerTimeout, scannerTimeout) ||
-                other.scannerTimeout == scannerTimeout) &&
-            (identical(other.psiphon, psiphon) || other.psiphon == psiphon) &&
-            (identical(other.psiphonCountry, psiphonCountry) ||
-                other.psiphonCountry == psiphonCountry) &&
-            (identical(other.gool, gool) || other.gool == gool) &&
-            (identical(other.url, url) || other.url == url));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      enabled,
-      type,
-      provider,
-      endpoint,
-      dns,
-      scanner,
-      scannerType,
-      scannerTimeout,
-      psiphon,
-      psiphonCountry,
-      gool,
-      url);
-
-  /// Create a copy of FlowLineElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$FlowLineElementImplCopyWith<_$FlowLineElementImpl> get copyWith =>
-      __$$FlowLineElementImplCopyWithImpl<_$FlowLineElementImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FlowLineElementImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _FlowLineElement implements FlowLineElement {
-  const factory _FlowLineElement(
-      {@JsonKey(name: "enabled") required final bool enabled,
-      @JsonKey(name: "type") required final String type,
-      @JsonKey(name: "provider") required final String provider,
-      @JsonKey(name: "endpoint") final String? endpoint,
-      @JsonKey(name: "dns") final String? dns,
-      @JsonKey(name: "scanner") final bool? scanner,
-      @JsonKey(name: "scanner_type") final String? scannerType,
-      @JsonKey(name: "scanner_timeout") final int? scannerTimeout,
-      @JsonKey(name: "psiphon") final bool? psiphon,
-      @JsonKey(name: "psiphon_country") final String? psiphonCountry,
-      @JsonKey(name: "gool") final bool? gool,
-      @JsonKey(name: "url") final String? url}) = _$FlowLineElementImpl;
-
-  factory _FlowLineElement.fromJson(Map<String, dynamic> json) =
-      _$FlowLineElementImpl.fromJson;
-
-  @override
-  @JsonKey(name: "enabled")
-  bool get enabled;
-  @override
-  @JsonKey(name: "type")
-  String get type;
-  @override
-  @JsonKey(name: "provider")
-  String get provider;
-  @override
-  @JsonKey(name: "endpoint")
-  String? get endpoint;
-  @override
-  @JsonKey(name: "dns")
-  String? get dns;
-  @override
-  @JsonKey(name: "scanner")
-  bool? get scanner;
-  @override
-  @JsonKey(name: "scanner_type")
-  String? get scannerType;
-  @override
-  @JsonKey(name: "scanner_timeout")
-  int? get scannerTimeout;
-  @override
-  @JsonKey(name: "psiphon")
-  bool? get psiphon;
-  @override
-  @JsonKey(name: "psiphon_country")
-  String? get psiphonCountry;
-  @override
-  @JsonKey(name: "gool")
-  bool? get gool;
-  @override
-  @JsonKey(name: "url")
-  String? get url;
-
-  /// Create a copy of FlowLineElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FlowLineElementImplCopyWith<_$FlowLineElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

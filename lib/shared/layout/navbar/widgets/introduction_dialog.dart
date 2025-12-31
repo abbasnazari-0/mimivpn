@@ -56,7 +56,7 @@ class IntroductionDialog extends StatelessWidget {
                   'https://github.com/UnboundTechCo/DXcore?tab=readme-ov-file#third-party-licenses',
             ),
             SizedBox(height: 10.h),
-            CopyableLink(text: 'defyxvpn.com'),
+            CopyableLink(text: 'MIMIvpn.com'),
             SizedBox(height: 10.h),
             IntroLinkItem(
               title: 'Beta Community',

@@ -62,7 +62,7 @@ class App extends ConsumerWidget {
       splitScreenMode: true,
       builder: (_, __) {
         return MaterialApp.router(
-          title: 'Defyx',
+          title: 'MIMI VPN',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.light,

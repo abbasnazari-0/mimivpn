@@ -20,7 +20,7 @@ final tipsTimerProvider = Provider<Timer?>((ref) {
     <String, String?>{
       'title': 'Hello 👋',
       'message':
-          'DEFYX can provide you with a safer and more private browsing experience.',
+          'MIMI can provide you with a safer and more private browsing experience.',
     },
     <String, String?>{
       'title': null,
@@ -52,7 +52,7 @@ final tipsDataProvider = Provider<List<Map<String, String?>>>(
     {
       'title': 'Hello 👋',
       'message':
-          'DEFYX can provide you with a safer and more private browsing experience.',
+          'MIMI can provide you with a safer and more private browsing experience.',
     },
     {
       'title': null,

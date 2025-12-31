@@ -93,6 +93,7 @@ class _PrivacyNoticeDialogState extends State<PrivacyNoticeDialog> {
                 if (accepted && context.mounted) {
                   Navigator.of(context).pop();
                 }
+                // Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.grey[200],

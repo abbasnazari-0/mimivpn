@@ -6,7 +6,7 @@ class VpnBridge {
   static final VpnBridge _instance = VpnBridge._internal();
   factory VpnBridge() => _instance;
 
-  final _methodChannel = MethodChannel('com.defyx.vpn');
+  final _methodChannel = MethodChannel('com.mimivpn.vpn');
 
   Future<String?> getVpnStatus() => _methodChannel.invokeMethod('getVpnStatus');
 

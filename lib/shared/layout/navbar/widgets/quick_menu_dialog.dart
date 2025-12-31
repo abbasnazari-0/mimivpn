@@ -3,6 +3,8 @@ import 'package:defyx_vpn/shared/layout/navbar/widgets/custom_webview_screen.dar
 import 'package:defyx_vpn/shared/layout/navbar/widgets/introduction_dialog.dart';
 import 'package:defyx_vpn/shared/layout/navbar/widgets/quick_menu_item.dart';
 import 'package:defyx_vpn/shared/layout/navbar/widgets/social_icon_button.dart';
+import 'package:defyx_vpn/modules/settings/presentation/screens/app_bypass_screen.dart';
+import 'package:defyx_vpn/modules/settings/presentation/screens/proxy_mode_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,17 +60,50 @@ class _QuickMenuDialogState extends State<QuickMenuDialog> {
                     children: [
                       QuickMenuItem(
                         topBorderRadius: true,
-                        title: 'Introduction',
+                        title: 'App Bypass',
                         onTap: () {
                           Navigator.of(context).pop();
-                          showCupertinoDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            builder: (ctx) => const IntroductionDialog(),
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const AppBypassScreen(),
+                            ),
                           );
                         },
                       ),
-                      Divider(height: 1.h, thickness: 1, color: const Color(0x8080808C)),
+                      Divider(
+                          height: 1.h,
+                          thickness: 1,
+                          color: const Color(0x8080808C)),
+                      QuickMenuItem(
+                        title: 'Proxy Mode',
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ProxyModeScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      Divider(
+                          height: 1.h,
+                          thickness: 1,
+                          color: const Color(0x8080808C)),
+                      // QuickMenuItem(
+                      //   title: 'Introduction',
+                      //   onTap: () {
+                      //     Navigator.of(context).pop();
+                      //     showCupertinoDialog(
+                      //       context: context,
+                      //       barrierDismissible: true,
+                      //       builder: (ctx) => const IntroductionDialog(),
+                      //     );
+                      //   },
+                      // ),
+                      Divider(
+                          height: 1.h,
+                          thickness: 1,
+                          color: const Color(0x8080808C)),
                       QuickMenuItem(
                         title: 'Privacy Policy',
                         onTap: () {
@@ -76,14 +111,18 @@ class _QuickMenuDialogState extends State<QuickMenuDialog> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const CustomWebViewScreen(
-                                url: 'https://defyxvpn.com/privacy-policy',
+                                url:
+                                    'https://mimi.arianadevs.com/privacy-policy',
                                 title: 'Privacy Policy',
                               ),
                             ),
                           );
                         },
                       ),
-                      Divider(height: 1.h, thickness: 1, color: const Color(0x8080808C)),
+                      Divider(
+                          height: 1.h,
+                          thickness: 1,
+                          color: const Color(0x8080808C)),
                       QuickMenuItem(
                         title: 'Terms & Conditions',
                         onTap: () {
@@ -91,66 +130,76 @@ class _QuickMenuDialogState extends State<QuickMenuDialog> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const CustomWebViewScreen(
-                                url: 'https://defyxvpn.com/terms-and-conditions',
+                                url:
+                                    'https://mimi.arianadevs.com/terms-and-conditions',
                                 title: 'Terms & Conditions',
                               ),
                             ),
                           );
                         },
                       ),
-                      Divider(height: 1.h, thickness: 1, color: const Color(0x8080808C)),
-                      SizedBox(
-                        height: 44,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SocialIconButton(
-                              iconPath: AppIcons.telegramPath,
-                              url: 'https://t.me/defyxvpn',
-                              iconWidth: 17.w,
-                              iconHeight: 17.w,
-                            ),
-                            SocialIconButton(
-                              iconPath: AppIcons.instagramPath,
-                              url: 'https://instagram.com/defyxvpn',
-                              iconWidth: 24.w,
-                              iconHeight: 24.w,
-                            ),
-                            SocialIconButton(
-                              iconPath: AppIcons.xPath,
-                              url: 'https://x.com/defyxvpn',
-                              iconWidth: 20.w,
-                              iconHeight: 20.w,
-                            ),
-                            SocialIconButton(
-                              iconPath: AppIcons.facebookPath,
-                              url: 'https://fb.com/defyxvpn',
-                              enable: false,
-                            ),
-                            SocialIconButton(
-                              iconPath: AppIcons.linkedinPath,
-                              url: 'https://linkedin.com/company/defyxvpn',
-                              enable: false,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(height: 1.h, thickness: 1, color: const Color(0x8080808C)),
-                      QuickMenuItem(
-                        title: 'Our Website',
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const CustomWebViewScreen(
-                                url: 'https://defyxvpn.com/contact',
-                                title: 'Our Website',
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      Divider(height: 1.h, thickness: 1, color: const Color(0x8080808C)),
+                      Divider(
+                          height: 1.h,
+                          thickness: 1,
+                          color: const Color(0x8080808C)),
+                      // SizedBox(
+                      //   height: 44,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //     children: [
+                      //       SocialIconButton(
+                      //         iconPath: AppIcons.telegramPath,
+                      //         url: 'https://t.me/defyxvpn',
+                      //         iconWidth: 17.w,
+                      //         iconHeight: 17.w,
+                      //       ),
+                      //       SocialIconButton(
+                      //         iconPath: AppIcons.instagramPath,
+                      //         url: 'https://instagram.com/defyxvpn',
+                      //         iconWidth: 24.w,
+                      //         iconHeight: 24.w,
+                      //       ),
+                      //       SocialIconButton(
+                      //         iconPath: AppIcons.xPath,
+                      //         url: 'https://x.com/defyxvpn',
+                      //         iconWidth: 20.w,
+                      //         iconHeight: 20.w,
+                      //       ),
+                      //       SocialIconButton(
+                      //         iconPath: AppIcons.facebookPath,
+                      //         url: 'https://fb.com/defyxvpn',
+                      //         enable: false,
+                      //       ),
+                      //       SocialIconButton(
+                      //         iconPath: AppIcons.linkedinPath,
+                      //         url: 'https://linkedin.com/company/defyxvpn',
+                      //         enable: false,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      Divider(
+                          height: 1.h,
+                          thickness: 1,
+                          color: const Color(0x8080808C)),
+                      // QuickMenuItem(
+                      //   title: 'Our Website',
+                      //   onTap: () {
+                      //     Navigator.of(context).pop();
+                      //     Navigator.of(context).push(
+                      //       MaterialPageRoute(
+                      //         builder: (context) => const CustomWebViewScreen(
+                      //           url: 'https://defyxvpn.com/contact',
+                      //           title: 'Our Website',
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
+                      Divider(
+                          height: 1.h,
+                          thickness: 1,
+                          color: const Color(0x8080808C)),
                       Container(
                         height: 44,
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -158,7 +207,7 @@ class _QuickMenuDialogState extends State<QuickMenuDialog> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '© DEFYX',
+                              '© MIMI-VPN',
                               style: TextStyle(
                                 fontSize: 17.sp,
                                 color: const Color(0xff747474),

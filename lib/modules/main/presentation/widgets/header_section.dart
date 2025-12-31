@@ -27,7 +27,7 @@ class HeaderSection extends ConsumerWidget {
                 GestureDetector(
                   onTap: onSecretTap,
                   child: Text(
-                    'D',
+                    'M',
                     style: TextStyle(
                       fontSize: 35.sp,
                       fontFamily: 'Lato',
@@ -39,7 +39,7 @@ class HeaderSection extends ConsumerWidget {
                 GestureDetector(
                   onTap: onSecretTap,
                   child: Text(
-                    'efyx ',
+                    'IMI ',
                     style: TextStyle(
                       fontSize: 32.sp,
                       fontFamily: 'Lato',
@@ -242,9 +242,7 @@ class AnalyzingStatus extends ConsumerWidget {
           duration: const Duration(milliseconds: 300),
           scale: isAnalyzing ? 1.0 : 0.9,
           alignment: Alignment.centerLeft,
-          child: isAnalyzing
-              ? AnalyzingContent()
-              : const SizedBox.shrink(),
+          child: isAnalyzing ? AnalyzingContent() : const SizedBox.shrink(),
         ),
       ),
     );

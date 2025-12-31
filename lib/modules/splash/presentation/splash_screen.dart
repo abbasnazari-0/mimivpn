@@ -97,8 +97,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _titlePart('D', FontWeight.w700),
-        _titlePart('efyx ', FontWeight.w400),
+        _titlePart('M', FontWeight.w700),
+        _titlePart('imi ', FontWeight.w400),
         _titlePart('VPN', FontWeight.w400, color: Colors.white),
       ],
     );

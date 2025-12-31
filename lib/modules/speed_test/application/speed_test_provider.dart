@@ -55,7 +55,8 @@ class SpeedTestState {
       result: result ?? this.result,
       progress: progress ?? this.progress,
       isConnectionStable: isConnectionStable ?? this.isConnectionStable,
-      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
+      errorMessage:
+          clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
       currentPhase: currentPhase ?? this.currentPhase,
       currentSpeed: currentSpeed ?? this.currentSpeed,
       hadError: hadError ?? this.hadError,
@@ -64,7 +65,8 @@ class SpeedTestState {
   }
 }
 
-final speedTestProvider = StateNotifierProvider<SpeedTestNotifier, SpeedTestState>((ref) {
+final speedTestProvider =
+    StateNotifierProvider<SpeedTestNotifier, SpeedTestState>((ref) {
   final httpClient = ref.read(httpClientProvider);
   return SpeedTestNotifier(httpClient, ref);
 });
@@ -86,13 +88,14 @@ class SpeedTestNotifier extends StateNotifier<SpeedTestState> {
   final List<double> _uploadSpeeds = [];
   final List<int> _latencies = [];
 
-  SpeedTestNotifier(this._httpClient, this._ref) : super(const SpeedTestState()) {
+  SpeedTestNotifier(this._httpClient, this._ref)
+      : super(const SpeedTestState()) {
     final dio = (_httpClient as HttpClient).dio;
 
     dio.options.connectTimeout = SpeedMeasurementConfig.connectTimeout;
     dio.options.receiveTimeout = SpeedMeasurementConfig.receiveTimeout;
     dio.options.sendTimeout = SpeedMeasurementConfig.sendTimeout;
-    dio.options.headers['User-Agent'] = 'Defyx VPN Speed Test';
+    dio.options.headers['User-Agent'] = 'MIMI VPN Speed Test';
 
     _api = SpeedTestApi(dio);
     _logger = CloudflareLoggerService(_api);
@@ -211,7 +214,8 @@ class SpeedTestNotifier extends StateNotifier<SpeedTestState> {
         debugPrint('🔍 Connection status during test: $status');
 
         if (!_isConnectionValid(status) && _isTestRunning()) {
-          debugPrint('🛑 Connection became invalid during speed test, stopping...');
+          debugPrint(
+              '🛑 Connection became invalid during speed test, stopping...');
           stopAndResetTest();
         }
       },
@@ -224,7 +228,8 @@ class SpeedTestNotifier extends StateNotifier<SpeedTestState> {
   }
 
   bool _isConnectionValid(ConnectionStatus status) {
-    return status == ConnectionStatus.disconnected || status == ConnectionStatus.connected;
+    return status == ConnectionStatus.disconnected ||
+        status == ConnectionStatus.connected;
   }
 
   bool _isTestRunning() {
@@ -322,7 +327,8 @@ class SpeedTestNotifier extends StateNotifier<SpeedTestState> {
     _latencies.addAll(service.latencies);
   }
 
-  Future<void> _runDownloadMeasurement(Map<String, dynamic> config, double progress) async {
+  Future<void> _runDownloadMeasurement(
+      Map<String, dynamic> config, double progress) async {
     final bytes = config['bytes'] as int;
     final sizeLabel = SpeedMeasurementConfig.formatBytes(bytes);
 
@@ -339,7 +345,8 @@ class SpeedTestNotifier extends StateNotifier<SpeedTestState> {
       onSpeedUpdate: (speed) {
         state = state.copyWith(currentSpeed: speed);
       },
-      onMetricsUpdate: (percentileSpeed, avgSpeed, currentPing, avgLatency, jitter) {
+      onMetricsUpdate:
+          (percentileSpeed, avgSpeed, currentPing, avgLatency, jitter) {
         state = state.copyWith(
           currentSpeed: avgSpeed,
           result: state.result.copyWith(
@@ -357,7 +364,8 @@ class SpeedTestNotifier extends StateNotifier<SpeedTestState> {
     _downloadSpeeds.addAll(service.downloadSpeeds);
   }
 
-  Future<void> _runUploadMeasurement(Map<String, dynamic> config, double progress) async {
+  Future<void> _runUploadMeasurement(
+      Map<String, dynamic> config, double progress) async {
     final bytes = config['bytes'] as int;
     final sizeLabel = SpeedMeasurementConfig.formatBytes(bytes);
 
@@ -414,14 +422,16 @@ class SpeedTestNotifier extends StateNotifier<SpeedTestState> {
   }
 
   void _checkConnectionStability() {
-    final isStable = ResultsCalculatorService.checkConnectionStability(state.result);
+    final isStable =
+        ResultsCalculatorService.checkConnectionStability(state.result);
 
     if (!isStable) {
       _vibrationService.vibrateError();
       state = state.copyWith(
         step: SpeedTestStep.ready,
         isConnectionStable: false,
-        errorMessage: 'Your connection was unstable, and the test was interrupted.',
+        errorMessage:
+            'Your connection was unstable, and the test was interrupted.',
         hadError: true,
       );
     } else {

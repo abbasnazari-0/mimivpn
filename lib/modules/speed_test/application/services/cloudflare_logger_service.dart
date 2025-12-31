@@ -20,7 +20,7 @@ class CloudflareLoggerService {
         'jitterMs': result.jitter,
         'packetLossPercent': result.packetLoss,
         'timestamp': DateTime.now().toIso8601String(),
-        'client': 'DefyxVPN-Flutter',
+        'client': 'MIMIVPN-Flutter',
       };
 
       await api.logMeasurement(logData: logData);

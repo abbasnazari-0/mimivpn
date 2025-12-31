@@ -47,7 +47,7 @@ class ConnectionStateNotifier extends StateNotifier<ConnectionState> {
 
   // Method channel for receiving events from iOS
   static const EventChannel _eventChannel = EventChannel(
-    'com.defyx.vpn_events',
+    'com.mimivpn.vpn_events',
   );
 
   StreamSubscription? _eventSubscription;
